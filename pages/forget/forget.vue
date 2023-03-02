@@ -8,7 +8,7 @@
 		<!-- 白色背景 -->
 		<view class="login">
 			<view class="flex">
-				<text class="title">绑定手机号</text>
+				<text class="title">找回密码</text>
 			</view>
 			<view class="login-form">
 				<uni-icons type="person"></uni-icons>
@@ -19,7 +19,16 @@
 				<input type="text" class="font-md" placeholder="验证码" v-model="form.code">
 				<send-code :form="form"></send-code>
 			</view>
-			<view class="login-button bg-main" hover-class="bg-main-hover" @click="submit">绑 定</view>
+			<view class="login-form">
+				<uni-icons type="locked"></uni-icons>
+				<input type="password" class="font-md" placeholder="请输入密码" v-model="form.password">
+			</view>
+			
+			<view class="login-form">
+				<uni-icons type="locked"></uni-icons>
+				<input type="password" class="font-md" placeholder="请确认密码" v-model="form.repassword">
+			</view>
+			<view class="login-button bg-main" hover-class="bg-main-hover" @click="submit">找 回</view>
 			
 		</view>
 		
@@ -34,6 +43,8 @@
 				form:{
 					phone:"",
 					code:"",
+					password:'',
+					repassword:""
 				},
 			};
 		},
@@ -43,25 +54,18 @@
 					delta:1
 				})
 			},
-			back(){
-				uni.navigateBack({
-					delta:1
-				})
-			},
 			submit(){
 				uni.showLoading({
-					title:'绑定中',
+					title:'提交中',
 					mask:false
 				})
 				let data = Object.assign(this.form,{})
-				this.$api.bindMobile(data).then(res => {
+				this.$api.forget(data).then(res => {
 					//提示
-					this.$showToast('绑定成功')
-					this.$store.commit('setBindPhone',{phone:data.phone})
+					this.$showToast('修改成功')
 					setTimeout(()=>{
 						this.handleBack()
 					},350)
-					console.log(this.$store.state.user)
 				}).finally(() => {
 					uni.hideLoading()
 				})

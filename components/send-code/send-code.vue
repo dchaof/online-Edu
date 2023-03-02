@@ -15,16 +15,25 @@
 				time:0
 			};
 		},
+		props:{
+			form:{
+				type:Object,
+				default:() => {}
+			}
+		},
 		methods:{
 			sendCode(){
-				if(this.time > 0) return 
-				this.time = 5
-				timer = setInterval(() => {
-					this.time--
-					if(this.time <=0){
-						clearInterval(timer)
-					}
-				},1000)
+				if(this.time > 0) return
+				this.$api.getCaptcha(this.form).then(res => {
+					console.log(res)
+					this.time = 60
+					timer = setInterval(() => {
+						this.time--
+						if(this.time <=0){
+							clearInterval(timer)
+						}
+					},1000)
+				})
 			}
 		}
 	}

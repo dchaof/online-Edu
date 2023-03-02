@@ -22,5 +22,17 @@ export default {
 	//用户登录
 	userLogin(data){
 		return api.post('/mobile/login',data)
+	},
+	//用户绑定手机
+	bindMobile(data){
+		return api.post('/mobile/bind_mobile',data)
+	},
+	//获取验证码
+	getCaptcha(data){
+		return api.post('/mobile/get_captcha',data)
+	},
+	//找回密码
+	forget(data){
+		return api.post('/mobile/forget',data)
 	}
 }

@@ -27,7 +27,7 @@
 			
 			<view class="flex my-3 justify-between align-center">
 				<text class="py-3 text-main" @click="changeType">{{type === 'login' ? '注册账号' : '去登录'}}</text>
-				<text class="py-3 text-light-muted">忘记密码?</text>
+				<text class="py-3 text-light-muted" @click="handleForget">忘记密码?</text>
 			</view>
 			
 			<view class="flex justify-center align-center">
@@ -65,6 +65,7 @@
 				})
 			},
 			changeType(){
+				this.clearForm()
 				this.type = this.type === 'login' ? 'reg' : 'login'
 			},
 			submit(){
@@ -77,26 +78,20 @@
 				}
 				let data = Object.assign(this.form,{})
 				uni.showLoading({
-					title:"注册中",
+					title:"提交中",
 					mask:false
 				})
-				if(this.type === 'reg'){
-					this.$api.userReg(data).then(res => {
-						//清空表单
-						this.clearForm()
+				let key = this.type === 'reg' ? 'userReg' : 'userLogin'
+				this.$api[key](data).then(res => {
+					//清空表单
+					this.clearForm()
+					if(this.type === 'reg'){
 						//提示
 						this.$showToast('注册完成')
 						//返回登录页
 						this.changeType()
-					}).finally(() => {
-						//关闭加载图标
-						uni.hideLoading()
-					})
-				}else {
-					this.$api.userLogin(data).then(res => {
+					}else{
 						this.$store.commit('setUserInfo',res)
-						//清空表单
-						this.clearForm()
 						//提示
 						this.$showToast('登录成功')
 						if(!res.phone){
@@ -104,11 +99,10 @@
 								url:'/pages/bind-phone/bind-phone'
 							})
 						}
-					}).finally(() => {
-						//关闭加载图标
-						uni.hideLoading()
-					})
-				}
+					}
+				}).finally(() => {
+					uni.hideLoading()
+				})
 			},
 			clearForm(){
 				this.form = {
@@ -119,8 +113,13 @@
 			},
 			checkboxChange(e){
 				this.confirm = !!e.detail.value.length
+			},
+			//点击忘记密码
+			handleForget(){
+				uni.navigateTo({
+					url:'/pages/forget/forget'
+				})
 			}
-			
 		}
 	}
 </script>

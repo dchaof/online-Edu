@@ -1,3 +1,4 @@
+import store from '../store/store.js'
 export default {
 	config:{
 		APP_ID:'bd9d01ecc75dbbaaefce',
@@ -8,7 +9,8 @@ export default {
 			option.url = this.BASE_URL + option.url;
 			option.method = option.method || "GET"
 			option.header = {
-					appid:this.APP_ID
+					appid:this.APP_ID,
+					token:store.state.token
 				};
 			resolve(option)
 			})
