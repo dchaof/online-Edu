@@ -10,10 +10,22 @@
 	}   
         ,{
             "path" : "pages/tabbar/home/home",
-            "style" :                                                                                    
+            "style" :
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+							"navigationBarTitleText": "",
+							"enablePullDownRefresh": false,
+							"navigationBarBackgroundColor": "#5ccc84",
+							"navigationBarTextStyle": "white",
+							"app-plus": {
+								"titleNView": {
+									"titleText": "我的",
+									"titleAlign": "left",
+									"buttons": [{
+										"type": "menu"
+										}
+									]
+								}
+							}
             }
             
         }
