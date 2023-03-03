@@ -43,4 +43,8 @@ export default {
 	updatePassword(data){
 		return api.post('/mobile/update_password',data)
 	},
+	//上传图片
+	uploadImage(data,option){
+		return api.upload('/mobile/upload',data,option)
+	}
 }

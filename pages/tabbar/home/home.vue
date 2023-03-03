@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="home-bg position-relative">
+		<view class="home-bg position-relative" @click="handleUserInfo">
 			<view class="flex px-3 py-4 justify-center align-center" v-if="user">
 				<image src="/static/uni.png" style="width:120rpx;height:120rpx;border-radius: 50%;"></image>
 				<view class="flex flex-column justify-center align-left text-white ml-3 flex-1">
@@ -8,9 +8,11 @@
 					<text class="font-sm mt-2">{{user.desc || '暂无介绍'}}</text>
 				</view>
 				<view>
-					<text class="iconfont icon-leimupinleifenleileibie" style="color: white;font-size: 22px;" @click="goSetting"></text>
+					<text class="iconfont icon-leimupinleifenleileibie" style="color: white;font-size: 22px;"></text>
 				</view>
 			</view>
+			
+			
 			<view class="flex px-3 py-4" v-else @click="handleLogin">
 				<image src="/static/uni.png" style="width:120rpx;height:120rpx;border-radius: 50%;"></image>
 				<view class="flex flex-column justify-center align-left text-white ml-3" >
@@ -72,6 +74,11 @@
 			goSetting(){
 				uni.navigateTo({
 					url:"/pages/setting/setting"
+				})
+			},
+			handleUserInfo(){
+				uni.navigateTo({
+					url:'/pages/user-info/user-info'
 				})
 			}
 		},

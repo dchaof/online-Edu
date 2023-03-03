@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-list>
+		<uni-list :border="false">
 			<uni-list-item clickable title="账户安全" :border="false" showArrow class="py-1" @click="goUserSafe"></uni-list-item>
 			<uni-list-item clickable title="清除缓存" :border="false"  class="py-1" @click="clear">
 				<text slot="footer">{{size | formateSize}}</text>
@@ -10,9 +10,11 @@
 				<text slot="footer">1.0.0</text>
 			</uni-list-item>
 		</uni-list>
-		<main-button @click="handleLogout">
-			<text>退出登录</text>
-		</main-button>
+		<view class="px-3">
+			<main-button @click="handleLogout" bClass="mt-2">
+				<text>退出登录</text>
+			</main-button>
+		</view>
 	</view>
 </template>
 
