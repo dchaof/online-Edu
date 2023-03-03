@@ -98,7 +98,12 @@
 							uni.navigateTo({
 								url:'/pages/bind-phone/bind-phone'
 							})
+						}else {
+							uni.navigateBack({
+								delta:1
+							})
 						}
+						
 					}
 				}).finally(() => {
 					uni.hideLoading()

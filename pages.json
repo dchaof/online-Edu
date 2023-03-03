@@ -74,6 +74,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/setting/setting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的设置",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-coupon/my-coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user-safe/user-safe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户安全",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-
-
-
 const store = new Vuex.Store({
 	state:{
 		user:null,
@@ -25,7 +22,14 @@ const store = new Vuex.Store({
 		setBindPhone(state,form){
 			state.user = Object.assign(state.user,form)
 			uni.setStorageSync('user',JSON.stringify(state.user))
+		},
+		clearUserInfo(state){
+			state.user = ''
+			state.token = ''
+			uni.removeStorageSync('user')
 		}
+	},
+	actions:{
 		
 	}
 })

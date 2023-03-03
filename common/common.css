@@ -88,3 +88,13 @@
 		border-radius: 50%;
 	}
 	/* logincss */
+	
+	
+	.main-btn {
+		height: 100rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #fff;
+		border-radius: 10rpx;
+	}

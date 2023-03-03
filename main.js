@@ -14,6 +14,27 @@ Vue.prototype.$showToast = function(title){
 		icon:"none"
 	})
 }
+Vue.prototype.navigateTo = function(url){
+	uni.navigateTo({
+		url
+	})
+}
+//权限跳转的方法
+Vue.prototype.authJump = function(url){
+	if(!store.state.user){
+		return uni.navigateTo({
+			url: '/pages/login/login'
+		});
+	}
+	if(!store.state.user.phone){
+		return uni.navigateTo({
+			url:'/pages/bind-phone/bind-phone'
+		})
+	}
+	uni.navigateTo({
+		url
+	})
+}
 
 App.mpType = 'app'
 
