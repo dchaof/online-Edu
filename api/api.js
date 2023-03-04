@@ -15,6 +15,10 @@ export default {
 	getFlashsale(params){
 		return api.get('/mobile/flashsale',params)
 	},
+	//获取优惠券列表
+	getCouponList(){
+		return api.get('/mobile/coupon')
+	},
 	//用户注册
 	userReg(data){
 		return api.post('/mobile/reg',data)
@@ -46,5 +50,21 @@ export default {
 	//上传图片
 	uploadImage(data,option){
 		return api.upload('/mobile/upload',data,option)
+	},
+	//修改用户资料
+	updateUserInfo(data){
+		return api.post('/mobile/update_info',data)
+	},
+	//获取我的订单列表
+	getOrderList(params){
+		return api.get('/mobile/order/list',params)
+	},
+	//获取优惠券列表
+	getUserCoupon(params){
+		return api.get('/mobile/user_coupon',params)
+	},
+	//领取优惠券
+	receiveCoupon(data){
+		return api.post('/mobile/user_coupon/receive',data)
 	}
 }

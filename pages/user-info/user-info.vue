@@ -5,18 +5,18 @@
 				<image slot="footer" :src="form.avatar" style="width: 75rpx;height: 75rpx;border-radius: 50%;"></image>
 			</uni-list-item>
 			<uni-list-item clickable title="昵称" :border="false"  class="py-1">
-				<input type="text" slot="footer" style="text-align: right;" placeholder="请设置" placeholder-style="color:#ccc;" v-model="user.nickname">
+				<input type="text" slot="footer" style="text-align: right;" placeholder="请设置" placeholder-style="color:#ccc;" v-model="form.nickname">
 			</uni-list-item>
 			<uni-list-item clickable title="性别" :border="false"  class="py-1" @click="handleSex">
 				<text slot="footer">{{form.sex || '未知'}}</text>
 			</uni-list-item>
-			<uni-list-item clickable title="手机" :border="false"  class="py-1">
-				<text slot="footer">{{form.phone}}</text>
+			<uni-list-item clickable title="手机" :border="false"  class="py-1" @click="handlePhone">
+				<text slot="footer">{{user.phone}}</text>
 			</uni-list-item>
 		</uni-list>
 		<view class="px-3">
-			<main-button @click="handleLogout" bClass="mt-2">
-				<text>退出登录</text>
+			<main-button @click="handleUpdate" bClass="mt-2">
+				<text>提 交</text>
 			</main-button>
 		</view>
 	</view>
@@ -29,9 +29,8 @@
 			return {
 				form:{
 					avatar:'',
-					nikename:'',
-					sex:'未知',
-					phone:''
+					nickname:'',
+					sex:'未知'
 				}
 			};
 		},
@@ -47,17 +46,20 @@
 			init(){
 				this.form = {
 					avatar:this.user.avatar,
-					nikename:this.user.nikename,
-					sex:this.user.sex,
-					phone:this.user.phone
+					nickname:this.user.nickname,
+					sex:this.user.sex
 				}
 			},
-			handleLogout(){
-				this.$api.logout().then(() => {
-					this.$store.commit('clearUserInfo')
-					uni.navigateTo({
-						url:'/pages/tabbar/home/home'
-					})
+			handleUpdate(){
+				uni.showLoading({
+					title:'绑定中',
+					mask:false
+				})
+				this.$api.updateUserInfo(this.form).then(() => {
+					this.$store.commit('updateUserInfo',this.form)
+					this.$showToast('修改成功')
+				}).finally(() => {
+					uni.hideLoading()
 				})
 			},
 			handleSex(){
@@ -67,6 +69,11 @@
 					success:res => {
 						this.form.sex =itemList[res.tapIndex]
 					}
+				})
+			},
+			handlePhone(){
+				uni.navigateTo({
+					url:'/pages/bind-phone/bind-phone'
 				})
 			},
 			handleAvatar(){

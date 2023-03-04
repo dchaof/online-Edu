@@ -19,7 +19,7 @@ const store = new Vuex.Store({
 				state.token = state.user.token
 			}
 		},
-		setBindPhone(state,form){
+		updateUserInfo(state,form){
 			state.user = Object.assign(state.user,form)
 			uni.setStorageSync('user',JSON.stringify(state.user))
 		},

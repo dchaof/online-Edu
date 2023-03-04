@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<view class="home-bg position-relative" @click="handleUserInfo">
-			<view class="flex px-3 py-4 justify-center align-center" v-if="user">
-				<image src="/static/uni.png" style="width:120rpx;height:120rpx;border-radius: 50%;"></image>
+		<view class="home-bg position-relative" >
+			<view class="flex px-3 py-4 justify-center align-center" v-if="user" @click="handleUserInfo">
+				<image :src="user.avatar" style="width:120rpx;height:120rpx;border-radius: 50%;"></image>
 				<view class="flex flex-column justify-center align-left text-white ml-3 flex-1">
 					<text>{{user.nickname || user.username || user.phone}}</text>
 					<text class="font-sm mt-2">{{user.desc || '暂无介绍'}}</text>
@@ -46,7 +46,8 @@
 			return {
 				icons:[{
 					icon:"icon-OrderHistory",
-					name:"订单"
+					name:"订单",
+					path:"/pages/order-list/order-list"
 				},{
 					icon:"icon-pinglun2",
 					name:"消息"
