@@ -18,7 +18,7 @@
 			<icon-nav v-else-if="item.type === 'icons'" :list="item.data"></icon-nav>
 			
 			<!-- 优惠券组件 -->
-			<coupon-list v-else-if="item.type === 'coupon'"></coupon-list>
+			<coupon-list ref="couponList" v-else-if="item.type === 'coupon'"></coupon-list>
 			
 			<template v-else-if="item.type === 'promotion'">
 				<active-list :type="item.listType"></active-list>
@@ -56,15 +56,27 @@
 		},
 		created(){
 			this.getIndexData()
+			uni.$on('userLogin',this.refreshCouponList)
+			uni.$on('userLogout',this.refreshCouponList)
+		},
+		destroyed(){
+			uni.$off('userLogin',this.refreshCouponList)
+			uni.$off('userLogout',this.refreshCouponList)
 		},
 		onPullDownRefresh(){
 			this.getIndexData()
+			this.refreshCouponList()
 		},
 		methods: {
 			getIndexData(){
 				this.$api.getIndexData().then(data => {
 					this.templates = data
 				})
+			},
+			refreshCouponList(){
+				if(this.$refs.couponList && this.$refs.couponList[0]){
+					this.$refs.couponList[0].getCouponList()
+				}
 			}
 		}
 	}

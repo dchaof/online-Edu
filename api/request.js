@@ -23,6 +23,11 @@ export default {
 						title:res.data.data || '请求失败',
 						icon:'none'
 					})
+					if(res.data.data === 'Token 令牌不合法，请重新登录'){
+						uni.navigateTo({
+							url:'/pages/login/login'
+						})
+					}
 					reject(res.data.data)
 					uni.stopPullDownRefresh()
 				}

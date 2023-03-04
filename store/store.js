@@ -11,6 +11,7 @@ const store = new Vuex.Store({
 			state.user = user
 			state.token = user.token
 			uni.setStorageSync('user',JSON.stringify(user))
+			uni.$emit('userLogin')
 		},
 		init(state){
 			const user = uni.getStorageSync('user') || ''
@@ -27,6 +28,7 @@ const store = new Vuex.Store({
 			state.user = ''
 			state.token = ''
 			uni.removeStorageSync('user')
+			uni.$emit('userLogout')
 		}
 	},
 	actions:{

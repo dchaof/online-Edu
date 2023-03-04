@@ -39,7 +39,7 @@
 			handleLogout(){
 				this.$api.logout().then(() => {
 					this.$store.commit('clearUserInfo')
-					uni.navigateTo({
+					uni.switchTab({
 						url:'/pages/tabbar/home/home'
 					})
 				})
