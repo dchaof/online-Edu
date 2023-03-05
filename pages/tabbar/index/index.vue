@@ -2,7 +2,7 @@
 	<view>
 		
 		<block v-for="(item,index) in templates" :key="item.type">
-			<f-search-bar v-if="item.type === 'search'"></f-search-bar>
+			<f-search-bar v-if="item.type === 'search'" ></f-search-bar>
 			
 			<!-- 轮播图 -->
 			<!-- indicator-dots是否有指示器  autoplay是否自动轮播   interval间隔多长时间轮播一次  duration动画时长 -->

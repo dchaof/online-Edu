@@ -119,6 +119,52 @@
             }
             
         }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+								"app-plus": {
+									"titleNView": {
+										"searchInput": {
+											"align":"left",
+											"autoFocus":true,
+											"backgroundColor":"#F6F9FB",
+											"borderRadius":"50px",
+											"placeholder":"输入搜索关键词"
+										},
+										"buttons": [
+											{
+												"text": "搜索",
+												"fontSize": "15px"
+											}
+										]
+									}
+								}
+            }
+            
+        }
+        ,{
+            "path" : "pages/search-result/search-result",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+								"app-plus": {
+									"titleNView": {
+										"searchInput": {
+											"align": "left",
+											"borderRadius": "50px",
+											"placeholder": "请输入关键词",
+											"disabled": true,
+											"backgroundColor": "#F6F9FB"
+										}
+									}
+								}
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
