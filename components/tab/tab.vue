@@ -1,7 +1,7 @@
 <template>
 	<view class="flex" style="border-bottom: 1rpx solid #f4f4f4;">
-		<view class="tab-item" v-for="(item,index) in tabs" :key="index" @click="$emit('update:current',index)">
-			<text class="font-md" :class="index === current ? 'tab-item-active' : ''">{{item}}</text>
+		<view class="tab-item" v-for="(item,index) in tabs" :key="index" @click="$emit('change',index)">
+			<text class="font-md" :class="index === current ? 'tab-item-active' : ''">{{item.name}}</text>
 			<view v-if="index === current" class="tab-line animate__animated animate__fadeIn animate__faster"></view>
 		</view>
 	</view>

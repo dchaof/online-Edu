@@ -66,5 +66,13 @@ export default {
 	//领取优惠券
 	receiveCoupon(data){
 		return api.post('/mobile/user_coupon/receive',data)
+	},
+	//搜索课程或者专栏
+	getMobileSearch(params){
+		return api.get('/mobile/search',params)
 	}
+	
+	
+	
+	
 }

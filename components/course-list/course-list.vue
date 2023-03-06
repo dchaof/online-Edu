@@ -81,4 +81,7 @@
 	background-color: rgba(0,0,0,.5);
 	color: white;
 }
+.course-one>view:last-child{
+	width: 400rpx;
+}
 </style>
