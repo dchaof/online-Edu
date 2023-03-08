@@ -54,11 +54,13 @@
 				this.getOrderList()
 			},
 			getOrderList(){
+				console.log(111)
 				return this.$api.getOrderList({
 					page:this.page,
 					limit:this.limit
 				}).then(res => {
-					this.orderList =  page === 1 ? res.rows : [...this.list,...res.rows]
+					console.log(this.orderList)
+					this.orderList =  this.page === 1 ? res.rows : [...this.orderList,...res.rows],
 					this.loadStatus = res.rows.length < this.limit ? 'nomore' : 'more'
 				}).catch((err) => {
 					this.loadStatus = 'more'

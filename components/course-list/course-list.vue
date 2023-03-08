@@ -1,5 +1,5 @@
 <template>
-	<view class="scroll-row-item course" :class="'course-'+this.type">
+	<view class="scroll-row-item course" :class="'course-'+this.type" @click="handleCourse(item)">
 		<view class="position-relative" >
 			<image :src="item.cover"></image>
 			<view class="p-1 font-sm">{{item.type | formatType}}</view>
@@ -38,6 +38,16 @@
 			return {
 				
 			};
+		},
+		methods:{
+			handleCourse(item){
+				let url = '/pages/course/course?id=' + this.item.id
+				if(!this.item.type){
+					console.log('11')
+					return this.authJump('/pages/column/column?id=' + this.item.id)
+				}
+				this.authJump(url)
+			}
 		},
 		filters:{
 			formatType(k){

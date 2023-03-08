@@ -70,9 +70,13 @@ export default {
 	//搜索课程或者专栏
 	getMobileSearch(params){
 		return api.get('/mobile/search',params)
+	},
+	//获取课程详情数据
+	getCourseDetail(params){
+		return api.get('/mobile/course/read',params)
+	},
+	//获取专栏的详情数据
+	getColumnDetail(params){
+		return api.get('/mobile/column/read',params)
 	}
-	
-	
-	
-	
 }
