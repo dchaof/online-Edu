@@ -5,8 +5,8 @@
 			<view class="position-absolute type p-1 font-sm">{{detail.type | formateType}}</view>
 		</view>
 		<video v-else-if="detail.type === 'video'" :src="detail.content" 
-		controls style="width: 100%; height: 420rpx;" :poster="detail.cover"></video>
-		<f-audio v-else-if="detail.type === 'audio'" :src="detail.content" :poster="detail.cover"></f-audio>
+		controls style="width: 100%; height: 420rpx;" :poster="detail.cover" @timeupdate="onVideoTimeUpdate"></video>
+		<f-audio v-else-if="detail.type === 'audio'" :src="detail.content" :poster="detail.cover" @getAudioProgress="getAudioProgress"></f-audio>
 		
 		<tab :current="current" :tabs="tabs" @change="clickTab"></tab>
 		
@@ -22,7 +22,7 @@
 		<view class="divider"></view>
 		<!-- 需要双重判断，如果时视频的的话这里只能显示课程介绍 -->
 		<uni-card :title="(detail.isbuy && detail.type == 'media') ? '课程内容': '课程介绍'" isFull :border="false" :isShadow="false">
-			<mp-html :content="(detail.isbuy && detail.type == 'media') ? detail.content: detail.try">
+			<mp-html :content="(detail.isbuy && detail.type == 'media') ? detail.content: detail.try" @ready="onMediaReady">
 				<view class="flex justify-center p-3 text-light-muted">
 					加载中...
 				</view>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+	let windowHeight = uni.getSystemInfoSync().windowHeight
 	export default {
 		data() {
 			return {
@@ -62,12 +63,21 @@
 					{name:'目录'}
 				],
 				current:0,
-				column_id:0
+				column_id:0,
+				scrollTop:0,
+				progress:0,
+				mediaHeight:0,
+				mediaTop:0
 			};
 		},
 		onLoad(e){
 			this.detail.id = e.id
-			this.column_id = e.column_id
+			if(e.column_id){
+				this.column_id = e.column_id
+			}
+			if(e.progress){
+				this.progress = e.progress
+			}
 			if(!this.detail.id){
 				this.$showToast('参数不合法')
 				uni.navigateBack({
@@ -75,9 +85,7 @@
 				})
 				return 
 			}
-			
 			this.getCourseDetail()
-			
 		},
 		
 		filters:{
@@ -90,16 +98,70 @@
 				return type[key]
 			}
 		},
+		onPageScroll(e){
+			//防止进度增大后又返回变小
+			if(this.detail.isbuy && this.detail.type === 'media' && this.scrollTop < e.scrollTop){
+				this.scrollTop = e.scrollTop
+				this.sumMediaProgress()
+			}
+		},
+		beforeDestroy(){
+			//关闭该页面的时候进行更新调用
+			this.updateProgress()
+		},
 		methods:{
+			//获取音频的进度
+			getAudioProgress(progress){
+				this.progress = progress
+			},
+			onVideoTimeUpdate(e){
+				let {currentTime,duration} = e.detail
+				if(duration > 0){
+					this.progress = ((currentTime / duration) * 100).toFixed(2) 
+				}
+			},
+			//更新进度
+			updateProgress(){
+				if(!this.detail.isbuy) return 
+				let data
+				if(this.column_id == 0){
+						data = {
+							id:this.detail.id,
+							type:'course',
+							progress:this.progress
+						}
+				}else {
+					data ={
+						id:this.column_id,
+						type:'column',
+						detail_id:this.detail.id
+					}
+				}
+				this.$api.updateProgress(data).then(res => {})
+			},
+			//计算课程的进度
+			sumMediaProgress(){
+				if(this.mediaHeight > 0){
+					//保留两位小数
+					this.progress = (((windowHeight - this.mediaTop + this.scrollTop) / this.mediaHeight)*100).toFixed(2)
+				}
+			},
+			onMediaReady(e){
+				this.mediaHeight = e.height
+				this.mediaTop = e.top
+			},
 			clickTab(index){
 				this.current = index
 			},
 			//获取课程详情数据
 			getCourseDetail(){
-				this.$api.getCourseDetail({
+				let params = {
 					id:this.detail.id,
-					column_id:this.column_id
-				}).then(res => {
+				}
+				if(this.column_id ){
+					params.column_id = this.column_id
+				}
+				this.$api.getCourseDetail(params).then(res => {
 					this.detail = res
 					uni.setNavigationBarTitle({
 						title:this.detail.title

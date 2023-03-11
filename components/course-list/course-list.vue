@@ -6,10 +6,14 @@
 		</view>
 		<view class="flex flex-column">
 			<text class="text-ellipsis">{{item.title}}</text>
-			<view class="font-sm text-light-muted pt-1">10人已抢</view>
+			<slot name="desc">
+				<view class="font-sm text-light-muted pt-1">10人已抢</view>
+			</slot>
 			<view class="flex flex-1 justify-start align-center">
-				<text class="font-md text-danger">￥{{item.price}}</text>
-				<text class="font-sm text-light-muted">￥{{item.t_price}}</text>
+				<slot name="progress">
+					<text class="font-md text-danger">￥{{item.price}}</text>
+					<text class="font-sm text-light-muted">￥{{item.t_price}}</text>
+				</slot>
 			</view>
 		</view>
 	</view>
@@ -41,9 +45,8 @@
 		},
 		methods:{
 			handleCourse(item){
-				let url = '/pages/course/course?id=' + this.item.id
+				let url = '/pages/course/course?id=' + this.item.id + '&progress=' + this.item.progress
 				if(!this.item.type){
-					console.log('11')
 					return this.authJump('/pages/column/column?id=' + this.item.id)
 				}
 				this.authJump(url)

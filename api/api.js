@@ -78,5 +78,13 @@ export default {
 	//获取专栏的详情数据
 	getColumnDetail(params){
 		return api.get('/mobile/column/read',params)
+	},
+	//获取学习的记录
+	getStudyHistory(params){
+		return api.get('/mobile/user_history/list',params)
+	},
+	//更新学习的进度
+	updateProgress(data){
+		return api.post('/mobile/user_history/update',data)
 	}
 }

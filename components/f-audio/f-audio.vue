@@ -6,8 +6,8 @@
 		</view>
 		
 		<view class="f-audio-slider pb-2 mb-3">
-			<slider @changing="handleChanging" :max="duration"  @change="handleChange" active-color="rgb(92, 204, 132)" 
-			 block-color="rgb(92, 204, 132)"block-size="12"/>
+			<slider @changing="handleChanging" :max="duration"  :value="position"  @change="handleChange" active-color="rgb(92, 204, 132)" 
+			 block-color="rgb(92, 204, 132)" block-size="12"/>
 			<text class="current-time">{{currentTime | formatTime}}</text>
 			<text class="duration">{{duration | formatTime}}</text>
 		</view>
@@ -96,11 +96,15 @@
 					}
 					this.currentTime = this._audioContext.currentTime
 					this.duration = this._audioContext.duration
+					
+					let progress = (((e.currentTime / e.duration) * 100)).toFixed()
+					this.$emit('getAudioProgress',progress)
 				})
 				//错误的回调
 				this._audioContext.onError(() => {
 					this.isPlaying = false
 				})
+				
 				
 			},
 			//完成拖动后的回调
