@@ -3,6 +3,7 @@
 		<view class="py-3 flex flex-column justify-center align-center" hover-class="bg-light"
 		 style="width: 25%;"
 		 v-for="item in list" :key="item.name" 
+		 @click="handleNav(item)"
 		 >
 		 <image
 			:src="item.src" mode="widthFix" style="width: 70rpx;height: 70rpx;border-radius: 50%;"></image>
@@ -26,7 +27,15 @@
 			};
 		},
 		methods:{
-			
+			handleNav(item){
+				switch(item.module){
+					case 'bbs':
+					uni.navigateTo({
+						url:'/pages/bbs/bbs'
+					})
+					break;
+				}
+			}
 		},
 		
 	}

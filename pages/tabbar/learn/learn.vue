@@ -10,7 +10,7 @@
 				<swiper-item class="flex flex-1" v-for="(t,tI) in tabs" :key="tI">
 					<scroll-view scroll-y="true" class="flex flex-column flex-1" @scrolltolower="handleGetMore(t)">
 						<course-list v-for="(item,index) in t.list" :key="index" :item="item" type="one">
-							<view v-slot="desc" class="font-sm text-light-muted pt-1">学习进度</view>
+							<view slot="desc" class="font-sm text-light-muted pt-1">学习进度</view>
 							<view slot="progress" class="flex">
 								<view v-if="index === 0" class="font-sm text-danger pt-1 mr-1">最近学习</view>
 								<view class="font-sm text-light-muted pt-1">已学习{{item.progress}}%</view>
@@ -32,7 +32,8 @@
 			return {
 				icons:[{
 					icon:"icon-OrderHistory",
-					name:"帖子"
+					name:"帖子",
+					path:'/pages/my-post/my-post'
 				},{
 					icon:"icon-pinglun2",
 					name:"考试"

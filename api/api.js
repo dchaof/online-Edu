@@ -86,5 +86,45 @@ export default {
 	//更新学习的进度
 	updateProgress(data){
 		return api.post('/mobile/user_history/update',data)
+	},
+	//获取社区列表
+	getBbsList(params){
+		return api.get('/mobile/bbs',params)
+	},
+	//获取帖子的列表
+	getPostList(params){
+		return api.get('/mobile/post/list',params)
+	},
+	//点赞
+	supportPost(data){
+		return api.post('/mobile/post/support',data)
+	},
+	//取消点赞
+	unsupportPost(data){
+		return api.post('/mobile/post/unsupport',data)
+	},
+	//发布帖子
+	submitPost(data){
+		return api.post('/mobile/post/save',data)
+	},
+	//获取帖子详情信息
+	readPost(params){
+		return api.get('/mobile/post/read',params)
+	},
+	//获取帖子的评论列表
+	getCommentList(params){
+		return api.get('/mobile/post_comment',params)
+	},
+	//发表评论
+	postReply(data){
+		return api.post('/mobile/post/reply',data)
+	},
+	//获取我的帖子列表
+	getMyPost(params){
+		return api.get('/mobile/mypost',params)
+	},
+	//删除我的帖子
+	deletePost(data){
+		return api.post('/mobile/post/delete',data)
 	}
 }
